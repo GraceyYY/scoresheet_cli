@@ -11,7 +11,7 @@ class Score {
 
   getAverageScore() {
     return [...this.scores.values()].reduce((avr, value, index, arr) => {
-      return index < arr.length - 1 ? avr + value : (avr + value) / arr.length;
+      return Math.round(index < arr.length - 1 ? avr + value : (avr + value) / arr.length);
     }, 0);
   }
 };
