@@ -27,19 +27,19 @@ class Scoresheet {
     return totalScores.length != 0 ? totalScores[index] : Math.round((totalScores[index] + totalScores[index + 1]) / 2);
   }
   printScoreSheet() {
-    let result = [...this.students.values()].map(student => {
-        function score(class) {
-            return student.score.scores.get(class);
-        };
-
-        return `
-        ${student.name}|${score('数学')}|${score('语文')}|${score('英语')}|${score('编程')}|${student.score.getAverageScore()}|${student.score.getTotalScore()}`;
+    let result = this.scoresheetTitle;
+    [...this.students.values()].forEach(student => {
+      function score(subject) {
+        return student.score.scores.get(subject);
+      };
+      result += `
+    ${student.name}|${score('数学')}|${score('语文')}|${score('英语')}|${score('编程')}|${student.score.getAverageScore()}|${student.score.getTotalScore()}`;
     });
     result += `
     ========================
     全班总分平均数：${this.getAverage()}
     全班总分中位数：${this.getMedian()}`;
+    return result;
   }
 }
-
 module.exports = Scoresheet;
