@@ -26,11 +26,15 @@ module.exports = () => {
         break;
       case '2':
         {
-          let input = showHints('idFormat');
-          while (!isStudentIdValid(input)) {
-            input = showHints('wrongIdFormat');
+          if (currentStudents.size != 0) {
+            let input = showHints('idFormat');
+            while (!isStudentIdValid(input)) {
+              input = showHints('wrongIdFormat');
+            }
+            printScores(input);
+          } else {
+            readlineSync.question('还未添加学生成绩，无法生成成绩单');
           }
-          printScores(input);
           mainMenu();
         }
         break;
