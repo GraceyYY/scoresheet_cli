@@ -31,7 +31,8 @@ class Scoresheet {
     let result = this.scoresheetTitle;
     [...this.students.values()].forEach(student => {
       function score(subject) {
-        return student.score.scores.get(subject);
+        let grade = student.score.scores.get(subject);
+        return grade ? grade : '无';
       };
       result += `
     ${student.name}|${score('数学')}|${score('语文')}|${score('英语')}|${score('编程')}|${student.score.getAverageScore()}|${student.score.getTotalScore()}`;
