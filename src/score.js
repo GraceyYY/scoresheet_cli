@@ -5,14 +5,12 @@ class Score {
 
   getTotalScore() {
     return [...this.scores.values()].reduce((sum, value) => {
-      return sum + value;
-    });
+      return sum + parseInt(value);
+    },0);
   }
 
   getAverageScore() {
-    return [...this.scores.values()].reduce((avr, value, index, arr) => {
-      return Math.round(index < arr.length - 1 ? avr + value : (avr + value) / arr.length);
-    }, 0);
+    return this.getTotalScore() / this.scores.size;
   }
 };
 
