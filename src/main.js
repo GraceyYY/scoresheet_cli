@@ -64,6 +64,39 @@ module.exports = () => {
     readlineSync.question(scoresheet.printScoreSheet());
   }
 
-
+  function mainMenu() {
+    const menu = `
+1. 添加学生
+2. 生成成绩单
+3. 退出
+请输入你的选择（1～3）：
+`;
+    let select = readlineSync.question(menu);
+    switch (select) {
+      case '1':
+        {
+          let input = showHints('scoreFormat');
+          while (!isInputValid(input)) {
+            input = showHints('wrongScoreFormat');
+          }
+          readlineSync.question(`学生${addScores(input)}的成绩被添加`);
+          mainMenu();
+        }
+        break;
+      case '2':
+        {
+          let input = showHints('idFormat');
+          while (!isStudentIdValid(input)) {
+            input = showHints('wrongIdFormat');
+          }
+          printScores(input);
+        }
+        break;
+      case '3':
+        break;
+      default:
+        mainMenu();
+    }
+  }
   mainMenu();
 }
