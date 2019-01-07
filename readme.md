@@ -1,4 +1,28 @@
 #  练习 - 学生成绩单-命令行版
+
+## Tasking
+[tasking image](https://ws3.sinaimg.cn/large/006tNc79ly1fyyi60a1jlj31360u0q7o.jpg)
+[tasking text](https://ws4.sinaimg.cn/large/006tNc79ly1fyyiccubwyj315k0u0wmh.jpg)
+
+## 思路描述
+* 该项目使用了'readline-sync'实现与命令行的交互
+* 为了实现需求，该项目创建了三个class，分别为Student, Score, 和Scoresheet。
+    1. Student class 包含了学生的姓名，学号和一个Score对象。
+    2. Score class 包含了一个Map对象（储存各科成绩），以及求平均分和总分的两个方法。
+    3. Scoresheet class 包含了以下内容：
+        * 一个Set对象：储存需要打印成绩的Student对象
+        * 一个Map对象：以学号为键储存已添加的所有Student对象
+        * scoresheetTitle：字符串，成绩单的表头
+        * appendStudent：向当前Scoresheet对象中添加要打印的Student对象
+        * getTotalScore: 取得所有已添加学生的总分
+        * getAverage & getMedian: 求得所有学生总分的平均分和中位数
+        * printScoreSheet: 向命令行输出成绩单
+* 主体思路如下：
+    * 添加学生：首先设置了一个全局变量currentStudents<Map>用来储存添加的Student对象，并用学生的学号作为键值。取得用户输入后，将其处理成为三部分（姓名，学号，成绩）。先判断该学生是否已经添加（通过学号在currentStudents中查询）。如果该学生已经存在，则更新该学生的成绩。如果该学生还未添加，则新建一个Score对象储存成绩，新建一个Student对象储存学生信息，并将其加入currentStudents中。
+    * 生成成绩单：首先判断currentStudents是否为空，如果是，则提示用户并未添加任何学生。如果currentStudents不为空，则通过用户输入的学号从currentStudents中提取出该学生的成绩，并将其输出到命令行中。
+    * 如果用户输入的格式有误时，提示用户正确的格式。
+    * 添加完学生/生成成绩单后返回主界面。
+
 ## 需求描述
 我们现在做一个命令行应用。当程序启动的时候，我们会看到一个命令行的主界面：
 ```
@@ -26,7 +50,7 @@
 3. 退出
 请输入你的选择（1～3）：
 ```
-等于回到了主界面。 
+等于回到了主界面。
 如果我们在主界面输入了2，那么界面就会变成：
 ```
 请输入要打印的学生的学号（格式： 学号, 学号,...），按回车提交：
@@ -38,7 +62,7 @@
 如果输入的格式正确，则会打印成绩单并回到主界面。
 ```
 成绩单
-姓名|数学|语文|英语|编程|平均分|总分 
+姓名|数学|语文|英语|编程|平均分|总分
 ========================
 张三|75|95|80|80|82.5|330
 李四|85|80|70|90|81.25|325
@@ -97,7 +121,7 @@ src   //源文件
 ```
  git remote set-url origin my_url
 ```
-- 请使用**git提交(commit)**并**上传(push)**，之后将此github仓库地址(用户自建的) eg:（https://github.com/username/repo） 填入到提交地址一栏 
+- 请使用**git提交(commit)**并**上传(push)**，之后将此github仓库地址(用户自建的) eg:（https://github.com/username/repo） 填入到提交地址一栏
 - 获取分支
 - 提交
 - 等待结果
