@@ -2,15 +2,53 @@ module.exports = () => {
   const Student = require('./student.js');
   const Score = require('./score.js');
   const Scoresheet = require('./scoresheet.js');
+  const readlineSync = require('readline-sync');
   const currentStudents = new Map();
-  const studentRegExp = /^[\u4e00-\u9fa5]{2,4}，[0-9]{4}，([\u4e00-\u9fa5]{2}：[0-9]{1,2}[0]?，?)+$/gi;
-  const idRegExp = /^([0-9]{4}，?)+$/gi;
+  mainMenu();
+
+  function mainMenu() {
+    const menu = `
+    1. 添加学生
+    2. 生成成绩单
+    3. 退出
+    请输入你的选择（1～3）：
+    `;
+    let select = readlineSync.question(menu);
+    switch (select) {
+      case '1':
+        {
+          let input = showHints('scoreFormat');
+          while (!isInputValid(input)) {
+            input = showHints('wrongScoreFormat');
+          }
+          readlineSync.question(`学生${addScores(input)}的成绩被添加`);
+          mainMenu();
+        }
+        break;
+      case '2':
+        {
+          let input = showHints('idFormat');
+          while (!isStudentIdValid(input)) {
+            input = showHints('wrongIdFormat');
+          }
+          printScores(input);
+          mainMenu();
+        }
+        break;
+      case '3':
+        break;
+      default:
+        mainMenu();
+    }
+  }
 
   function isInputValid(input) {
+    const studentRegExp = /^[\u4e00-\u9fa5]{2,4}，[0-9]{4}，([\u4e00-\u9fa5]{2}：[0-9]{1,2}[0]?，?)+$/gi;
     return input.match(studentRegExp) ? true : false;
   }
 
   function isStudentIdValid(id) {
+    const idRegExp = /^([0-9]{4}，?)+$/gi;
     return id.match(idRegExp) ? true : false;
   }
 
@@ -26,12 +64,11 @@ module.exports = () => {
     } else {
       let student = currentStudents.get(id);
       for (let [subject, grade] of scoresArr) {
-        student.score.set(subject, grade);
+        student.score.scores.set(subject, grade);
       }
     }
     return name;
   }
-  const readlineSync = require('readline-sync');
 
   function showHints(hint) {
     let msg = '';
@@ -55,7 +92,7 @@ module.exports = () => {
   }
 
   function printScores(input) {
-    const scoresheet = new Scoresheet(new Set());
+    const scoresheet = new Scoresheet(new Set(), currentStudents);
     input.split('，').forEach(id => {
       if (currentStudents.has(id)) {
         scoresheet.appendStudent(currentStudents.get(id));
@@ -63,40 +100,4 @@ module.exports = () => {
     });
     readlineSync.question(scoresheet.printScoreSheet());
   }
-
-  function mainMenu() {
-    const menu = `
-1. 添加学生
-2. 生成成绩单
-3. 退出
-请输入你的选择（1～3）：
-`;
-    let select = readlineSync.question(menu);
-    switch (select) {
-      case '1':
-        {
-          let input = showHints('scoreFormat');
-          while (!isInputValid(input)) {
-            input = showHints('wrongScoreFormat');
-          }
-          readlineSync.question(`学生${addScores(input)}的成绩被添加`);
-          mainMenu();
-        }
-        break;
-      case '2':
-        {
-          let input = showHints('idFormat');
-          while (!isStudentIdValid(input)) {
-            input = showHints('wrongIdFormat');
-          }
-          printScores(input);
-        }
-        break;
-      case '3':
-        break;
-      default:
-        mainMenu();
-    }
-  }
-  mainMenu();
 }
