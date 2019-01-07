@@ -23,9 +23,9 @@ class Scoresheet {
     }));
   }
   getMedian() {
-    let totalScores = this.getStudentTotalScores();
+    let totalScores = this.getStudentTotalScores().sort((a,b)=> a - b);
     let index = Math.floor((totalScores.length - 1) / 2);
-    return totalScores.length != 0 ? totalScores[index] : Math.round((totalScores[index] + totalScores[index + 1]) / 2);
+    return totalScores.length % 2 != 0 ? totalScores[index] : Math.round((totalScores[index] + totalScores[index + 1]) / 2);
   }
   printScoreSheet() {
     let result = this.scoresheetTitle;
