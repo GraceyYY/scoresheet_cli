@@ -1,6 +1,7 @@
 class Scoresheet {
-  constructor(students) {
+  constructor(students,allStudents) {
     this.students = students;
+    this.allStudents = allStudents;
     this.scoresheetTitle = `
     成绩单
     姓名|数学|语文|英语|编程|平均分|总分
@@ -11,7 +12,7 @@ class Scoresheet {
   }
   getStudentTotalScores() {
     let totalScores = [];
-    this.students.forEach(student => {
+    this.allStudents.forEach((student,id) => {
       totalScores.push(student.score.getTotalScore());
     });
     return totalScores;
