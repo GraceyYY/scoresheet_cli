@@ -1,8 +1,8 @@
 #  练习 - 学生成绩单-命令行版
 
 ## Tasking
-[tasking image](https://ws3.sinaimg.cn/large/006tNc79ly1fyyi60a1jlj31360u0q7o.jpg)
-[tasking text](https://ws4.sinaimg.cn/large/006tNc79ly1fyyiccubwyj315k0u0wmh.jpg)
+* [Tasking image](https://ws3.sinaimg.cn/large/006tNc79ly1fyyi60a1jlj31360u0q7o.jpg)
+* [Tasking text](https://ws4.sinaimg.cn/large/006tNc79ly1fyyiccubwyj315k0u0wmh.jpg)
 
 ## 思路描述
 * 该项目使用了'readline-sync'实现与命令行的交互
