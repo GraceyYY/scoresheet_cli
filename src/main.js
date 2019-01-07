@@ -40,4 +40,26 @@ module.exports = () => {
     let select = readlineSync.question(menu);
     return select;
   }
+
+  function showHints(hint) {
+    let msg = '';
+    switch(hint) {
+        case 'scoreFormat':
+        msg = '请输入学生信息（格式：姓名, 学号, 学科: 成绩, ...），按回车提交：\n';
+        break;
+        case 'wrongScoreFormat':
+        msg = '请按正确的格式输入（格式：姓名, 学号, 学科: 成绩, ...）：\n';
+        break;
+        case 'idFormat' :
+        msg = '请输入要打印的学生的学号（格式： 学号, 学号,...），按回车提交：\n';
+        break;
+        case 'wrongIdFormat' :
+        msg = '请按正确的格式输入要打印的学生的学号（格式： 学号, 学号,...），按回车提交：\n';
+        break;
+        default:
+        break;
+
+        return readlineSync.question(msg);
+    }
+  }
 }
