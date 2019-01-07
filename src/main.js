@@ -53,5 +53,17 @@ module.exports = () => {
     }
     return readlineSync.question(msg);
   }
+
+  function printScores(input) {
+    const scoresheet = new Scoresheet(new Set());
+    input.split('，').forEach(id => {
+      if (currentStudents.has(id)) {
+        scoresheet.appendStudent(currentStudents.get(id));
+      }
+    });
+    readlineSync.question(scoresheet.printScoreSheet());
+  }
+
+
   mainMenu();
 }
